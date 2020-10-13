@@ -31,42 +31,53 @@ Things you may want to cover:
 | name       | string | null: false |
 | email      | string | null: false |
 | password   | string | null: false |
-| full_name1 | string | null: false |
-| full_name2 | string | null: false |
-| birthday   | string | null: false |
+| 性          | string | null: false |
+| 名          | string | null: false |
+| セイ        | string | null: false |
+| メイ        | string | null: false |
+| birthday   | date   | null: false |
 | profile    | text   | null: false |
 ### Association
-- has_many :sell_products
-- has_many :buy_products
-
-## sell_products テーブル
+- has_many :items
+- has_many :purchases
+- has_many :transactions
+## items テーブル
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | title         | string     | null: false                    |
-| category      | string     | null: false                    |
-| living        | string     | null: false                    |
+| category      | integer    | null: false                    |
+| living        | integer    | null: false                    |
 | condition     | integer    | null: false                    |
 | shipping_cost | integer    | null: false                    |
+| shipping_days | integer    | null: false                    |
 | description   | text       | null: false                    |
 | user          | references | null: false, foreign_key: true |
 ### Association
 - belongs_to :user
-- has_one :buy_product
+- has_one :purchase
+- has_many :transactions
 
-## buy_products テーブル
+## purchases テーブル
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
-| card_number  | text       | null: false                    |
-| card_limit   | text       | null: false                    |
-| card_code    | text       | null: false                    |
-| postal_code  | text       | null: false                    |
-| prefecture   | text       | null: false                    |
+| postal_code  | string     | null: false                    |
+| prefecture   | integer    | null: false                    |
 | municipality | text       | null: false                    |
 | address      | text       | null: false                    |
-| building     | text       | null: false                    |
-| phone_number | text       | null: false                    |
+| building     | text       |                                |
+| phone_number | string     | null: false                    |
 | user         | references | null: false, foreign_key: true |
 | sell_product | references | null: false, foreign_key: true |
 ### Association
-- belongs_to :sell_product
+- belongs_to :item
 - belongs_to :user
+
+## transactions テーブル
+| Column          | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| text            | text       | null: false                    |
+| user_id         | references | null: false, foreign_key: true |
+| sell_product_id | references | null: false, foreign_key: true |
+### Association
+- belongs_to :user
+- belongs_to :item
