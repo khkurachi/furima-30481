@@ -51,7 +51,7 @@ Things you may want to cover:
 | user          | references | null: false, foreign_key: true |
 ### Association
 - belongs_to :user
-- belongs_to :buy_product
+- has_one :buy_product
 
 ## buy_products テーブル
 | Column       | Type       | Options                        |
