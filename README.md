@@ -31,53 +31,49 @@ Things you may want to cover:
 | name       | string | null: false |
 | email      | string | null: false |
 | password   | string | null: false |
-| 性          | string | null: false |
-| 名          | string | null: false |
-| セイ        | string | null: false |
-| メイ        | string | null: false |
+| f_name1    | string | null: false |
+| l_name1    | string | null: false |
+| f_name2    | string | null: false |
+| l_name2    | string | null: false |
 | birthday   | date   | null: false |
 | profile    | text   | null: false |
 ### Association
 - has_many :items
-- has_many :purchases
-- has_many :transactions
+- has_one :transaction
 ## items テーブル
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| title         | string     | null: false                    |
-| category      | integer    | null: false                    |
-| living        | integer    | null: false                    |
-| condition     | integer    | null: false                    |
-| shipping_cost | integer    | null: false                    |
-| shipping_days | integer    | null: false                    |
-| description   | text       | null: false                    |
-| user          | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| title            | string     | null: false                    |
+| category_id      | integer    | null: false                    |
+| living_id        | integer    | null: false                    |
+| condition_id     | integer    | null: false                    |
+| shipping_cost-id | integer    | null: false                    |
+| shipping_days-id | integer    | null: false                    |
+| description      | text       | null: false                    |
+| user             | references | null: false, foreign_key: true |
 ### Association
 - belongs_to :user
-- has_one :purchase
-- has_many :transactions
-
-## purchases テーブル
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| postal_code  | string     | null: false                    |
-| prefecture   | integer    | null: false                    |
-| municipality | text       | null: false                    |
-| address      | text       | null: false                    |
-| building     | text       |                                |
-| phone_number | string     | null: false                    |
-| user         | references | null: false, foreign_key: true |
-| sell_product | references | null: false, foreign_key: true |
-### Association
-- belongs_to :item
-- belongs_to :user
+- has_one :transaction
 
 ## transactions テーブル
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
-| text            | text       | null: false                    |
 | user_id         | references | null: false, foreign_key: true |
 | sell_product_id | references | null: false, foreign_key: true |
 ### Association
 - belongs_to :user
 - belongs_to :item
+- has_one :purchase
+
+## purchases テーブル
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | string     | null: false                    |
+| prefecture-id | integer    | null: false                    |
+| municipality  | text       | null: false                    |
+| address       | text       | null: false                    |
+| building      | text       |                                |
+| phone_number  | string     | null: false                    |
+### Association
+- belongs_to :transaction
+
