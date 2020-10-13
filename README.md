@@ -38,7 +38,7 @@ Things you may want to cover:
 | birthday     | date   | null: false |
 ### Association
 - has_many :items
-- has_one :purchase
+- has_many :purchases
 ## items テーブル
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
