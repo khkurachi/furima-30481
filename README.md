@@ -36,16 +36,16 @@ Things you may want to cover:
 | f_name_kana  | string | null: false |
 | l_name_kana  | string | null: false |
 | birthday     | date   | null: false |
-| profile      | text   | null: false |
 ### Association
 - has_many :items
-- has_one :transaction
+- has_one :purchase
 ## items テーブル
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | title            | string     | null: false                    |
+| value            | integer    | null: false                    |
 | category_id      | integer    | null: false                    |
-| living_id        | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
 | condition_id     | integer    | null: false                    |
 | shipping_cost_id | integer    | null: false                    |
 | shipping_days_id | integer    | null: false                    |
@@ -53,9 +53,9 @@ Things you may want to cover:
 | user             | references | null: false, foreign_key: true |
 ### Association
 - belongs_to :user
-- has_one :transaction
+- has_one :purchase
 
-## transactions テーブル
+## purchases テーブル
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
 | user    | references | null: false, foreign_key: true |
@@ -63,9 +63,9 @@ Things you may want to cover:
 ### Association
 - belongs_to :user
 - belongs_to :item
-- has_one :purchase
+- has_one :address
 
-## purchases テーブル
+## addresses テーブル
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | postal_code   | string     | null: false                    |
@@ -74,7 +74,7 @@ Things you may want to cover:
 | address       | string     | null: false                    |
 | building      | string     |                                |
 | phone_number  | string     | null: false                    |
-| transaction   | references | null: false, foreign_key: true |
+| purchase      | references | null: false, foreign_key: true |
 ### Association
-- belongs_to :transaction
+- belongs_to :purchase
 
