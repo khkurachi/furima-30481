@@ -62,5 +62,68 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       #新規登録ページへ戻されることを確認する
       expect(current_path).to eq "/users"
     end
-  end  
+  end
+end
+RSpec.describe "ユーザーログイン機能", type: :system do
+  before do
+    @user = FactoryBot.build(:user)
+  end
+  it 'ログインに成功し、トップページに遷移する' do
+    #トップページへ移動する
+    visit root_path
+    #トップページにサインインページへ遷移するボタンがあることを確認する
+    expect(page).to have_content('ログイン')
+    # 予め、ユーザーをDBに保存する
+    @user = FactoryBot.create(:user)
+    # サインインページへ移動する
+    visit new_user_session_path
+    # ログインしていない場合、サインインページに遷移していることを確認する
+    expect(current_path).to eq new_user_session_path
+    # すでに保存されているユーザーのemailとpasswordを入力する
+    fill_in 'email', with: @user.email
+    fill_in 'password', with: @user.password
+    # ログインボタンをクリックする
+    click_on ('ログイン')
+    # トップページに遷移していることを確認する
+    expect(current_path).to eq root_path   
+  end
+  it 'ログインに失敗し、再びサインインページに戻ってくる' do
+    # トップページに遷移する
+    visit root_path
+    #トップページにサインインページへ遷移するボタンがあることを確認する
+    expect(page).to have_content('ログイン')
+    # 予め、ユーザーをDBに保存する
+    @user = FactoryBot.create(:user)
+     # サインインページへ移動する
+     visit new_user_session_path
+    # ログインしていない場合、サインインページに遷移していることを確認する
+    expect(current_path).to eq new_user_session_path
+    # 誤ったユーザー情報を入力する
+    fill_in 'email', with: ""
+    fill_in 'password', with: ""
+    # ログインボタンをクリックする
+    click_on ('ログイン')
+    # サインインページに戻ってきていることを確認する
+    expect(current_path).to eq user_session_path
+  end
+end
+RSpec.describe "ユーザーログアウト機能", type: :system do
+  before do
+    @user = FactoryBot.build(:user)
+  end
+  it 'ログアウトに成功しトップページへ戻る' do
+    #ログインする
+    visit root_path
+    @user = FactoryBot.create(:user)
+    visit new_user_session_path
+    fill_in 'email', with: @user.email
+    fill_in 'password', with: @user.password
+    click_on ('ログイン')
+    #トップページにログアウトボタンがあることを確認する
+    expect(current_path).to eq root_path
+    #ログアウトボタンをクリックする
+    click_on ('ログアウト')
+    #トップページにログインボタンがあることを確認する
+    expect(page).to have_content('ログイン')
+  end
 end
