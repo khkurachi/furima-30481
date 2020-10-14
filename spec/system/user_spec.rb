@@ -107,6 +107,7 @@ RSpec.describe "ユーザーログイン機能", type: :system do
     expect(current_path).to eq user_session_path
   end
 end
+  
 RSpec.describe "ユーザーログアウト機能", type: :system do
   before do
     @user = FactoryBot.build(:user)
