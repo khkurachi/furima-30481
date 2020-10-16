@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-
+  before_action :authenticate_user!, except: [:index, :sign_in, :log_in, :show]
   def index
   end
 
