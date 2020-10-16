@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :item do
+    after(:build) do |item|
+      item.image.attach(io: File.open('app/assets/images/staff.jpg'), filename: 'staff.jpg')
+    end
     title {"test"}
     description {Faker::Lorem.sentence}
     category_id {"2"}

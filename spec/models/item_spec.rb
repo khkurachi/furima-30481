@@ -20,29 +20,29 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Description can't be blank")
     end
     it "category_idが空では登録できないこと" do
-      @item.category_id = nil
+      @item.category_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Category is not a number")
+      expect(@item.errors.full_messages).to include("Category must be other than 1")
     end
     it "condition_idが空では登録できないこと" do
-      @item.condition_id = nil
+      @item.condition_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Condition is not a number")
+      expect(@item.errors.full_messages).to include("Condition must be other than 1")
     end
     it "shipping_cost_idが空では登録できないこと" do
-      @item.shipping_cost_id = nil
+      @item.shipping_cost_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Shipping cost is not a number")
+      expect(@item.errors.full_messages).to include("Shipping cost must be other than 1")
     end
-    it "prefectureが空では登録できないこと" do
-      @item.prefecture_id = nil
+    it "prefecture_idが空では登録できないこと" do
+      @item.prefecture_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Prefecture is not a number")
+      expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
     end
     it "shipping_day_idが空では登録できないこと" do
-      @item.shipping_day_id = nil
+      @item.shipping_day_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Shipping day is not a number")
+      expect(@item.errors.full_messages).to include("Shipping day must be other than 1")
     end
     it "valueが空では登録できないこと" do
       @item.value = nil
