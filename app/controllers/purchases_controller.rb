@@ -1,15 +1,16 @@
 class PurchasesController < ApplicationController
-  before_action :set_purchase, only: :index
+  before_action :set_purchase, only: [:index, :create]
   before_action :move_to_log_in, only: :index
   before_action :move_to_top, only: :index
   def index
-    @purchases = Purchase.new
+    @address_purchase = AddressPurchase.new
   end
 
   def create
-    @purchase = Purchase.create(purchase_params)
-    if @purchase.valid?
-      @purchase.save
+    @address_purchase = AddressPurchase.new(purchase_params)
+    if @address_purchase.valid?
+      pay_item
+      @address_purchase.save
       return redirect_to root_path
     else
       render 'index'
@@ -19,7 +20,7 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.require(:purchase).permit(:price)
+    params.require(:address_purchase).permit(:postal_code, :prefecture_id, :municipality, :address, :phone_number, :purchase_id, :user_id, :item_id).merge(token: params[:token])
   end
 
   def set_purchase
@@ -35,5 +36,13 @@ class PurchasesController < ApplicationController
     if user_signed_in? && current_user.id == @item.user_id
       redirect_to root_path
     end
+  end
+
+  def pay_item
+    Payjp.api_key = "sk_test_650f8c54028b049864c4b509" 
+    Payjp::Charge.create(
+      card: address_purchase_params[:token],    # カードトークン
+      currency: 'jpy'                 # 通貨の種類（日本円）
+    )
   end
 end
