@@ -22,11 +22,12 @@ class PurchasesController < ApplicationController
   def address_purchase_params
     params.require(:address_purchase)
     .permit(:postal_code, :prefecture_id, :municipality, :address, :phone_number, :purchase_id, :user_id, :item_id)
-    .merge(token: params[:token])
+    .merge(token: params[:token], user_id: current_user.id, item_id: @item.id)
   end
 
   def set_purchase
     @item = Item.find(params[:item_id])
+    user = current_user
   end
 
   def move_to_log_in
