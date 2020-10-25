@@ -28,7 +28,6 @@ class PurchasesController < ApplicationController
 
   def set_purchase
     @item = Item.find(params[:item_id])
-    user = current_user
   end
 
   def move_to_log_in
