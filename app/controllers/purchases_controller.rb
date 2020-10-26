@@ -1,8 +1,8 @@
 class PurchasesController < ApplicationController
   before_action :set_purchase, only: [:index, :create]
-  before_action :move_to_log_in, only: :index
   before_action :move_to_top, only: :index
   before_action :move_to_top_sold, only: :index
+  before_action :move_to_log_in, only: :index
   def index
     @address_purchase = AddressPurchase.new
   end
